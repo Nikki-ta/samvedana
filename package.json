@@ -1,0 +1,48 @@
+{
+  "name": "food-donation-management-system",
+  "version": "1.0.0",
+  "description": "A Food donation management system in which donors can donate the food and this food can be fed to the poor people",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js -e html,css,js,ejs",
+    "test": "mocha 'test/**/*.test.js'",
+    "type": "module"
+  },
+  "keywords": [
+    "Food",
+    "Donation",
+    "management"
+  ],
+  "author": "aayush",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "bcryptjs": "^2.4.3",
+    "bottleneck": "^2.19.5",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.10",
+    "exif": "^0.6.0",
+    "exif-parser": "^0.1.12",
+    "express": "^4.21.1",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.17.2",
+    "method-override": "^3.0.0",
+    "mongodb": "^6.10.0",
+    "mongoose": "^6.13.3",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.16",
+    "passport": "^0.5.2",
+    "passport-local": "^1.0.0",
+    "pdfkit": "^0.15.1",
+    "puppeteer": "^23.8.0"
+  },
+  "devDependencies": {
+    "chai": "^5.1.2",
+    "mocha": "^10.8.2",
+    "nodemon": "^2.0.15",
+    "sinon": "^19.0.2",
+    "supertest": "^7.0.0"
+  }
+}
