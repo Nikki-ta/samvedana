@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#3f51b5">
+	<link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Overpass:300,400,400i,600,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/animate.css">
+    
+    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="/assets/css/aos.css">
+
+    <link rel="stylesheet" href="/assets/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="/assets/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/assets/css/jquery.timepicker.css">
+
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="/assets/css/flaticon.css">
+    <link rel="stylesheet" href="/assets/css/icomoon.css">
+	<link rel="stylesheet" href="/assets/css/style.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="stylesheet" href="/assets/css/sidebar.css">
+	<!-- <link rel="stylesheet" href="/assets/css/sidebar.css"> -->
+	<title> <%= typeof title != 'undefined' ? title : "Samvedana" %> </title>
+</head>
+
+<body>
+	<%- include('../partials/header') %>
+	<%- include('../partials/alerts') %>
+
+
+<style>
+   header .navbar, .bg-dark, .navbar-dark, .navbar-light {
+      background-color: #554635 !important;
+      background-image: none !important;
+      box-shadow: none !important;
+   }
+   </style>
+<main>
+	<%- include('../partials/agentSidebar') %>
+	
+	<div id="main-wrapper">
+		
+		<div class="bg-white shadow-sm p-3">
+			<span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+			<h5 class="m-0 color-theme d-inline-block">Collection</h5>
+		</div>
+		
+		<div class="border m-4 my-3 p-4 bg-white rounded-2 shadow-sm">
+			<div class="mb-2">
+				<span>Donor Name:</span>
+				<span><%= collection.donor.firstName + " " + collection.donor.lastName %></span>
+			</div>
+			
+			<div class="mb-2">
+				<span>Food type:</span>
+				<span><%= collection.foodType %></span>
+			</div>
+			
+			<div class="mb-2">
+				<span>Quantity:</span>
+				<span><%= collection.quantity %></span>
+			</div>
+			
+			<div class="mb-2">
+				<span>Time of cooking:</span>
+				<span><%= collection.cookingTime.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short"}) %></span>
+			</div>
+			
+			<div class="mb-2">
+				<span>Address to collect:</span>
+				<span><%= collection.address %></span>
+			</div>
+			
+			<div class="mb-2">
+				<span>Phone:</span>
+				<span><%= collection.phone %></span>
+			</div>
+			
+			<div class="mb-2">
+				<span>Status:</span>
+				<span class="fw-bold text-<%= collection.status %>"><%= collection.status %></span>
+			</div>
+			
+			<!-- <% if(collection.status == "assigned" && collection.adminToAgentMsg != "") { %>
+				<div class="mb-2">
+					<span>Message from Admin:</span>
+					<div class="ms-3"><%= collection.adminToAgentMsg %></div>
+				</div>
+			<% } %> -->
+			<% if(collection.status=="assigned"){ %>
+			<div class="mt-4">
+				<a href="/agent/terms" class="btn">Fill Form</a>
+			</div>
+			<% } %>
+			
+			
+		</div>
+		
+	</div>
+</main>
+<% if (collection.status === "collected" && !collection.feedbackGiven && !collection.feedbackDismissed) { %>
+    <!-- Feedback Modal -->
+    <div id="feedbackModal" class="modal fade" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Feedback on Donor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="feedbackForm" method="POST" action="/agent/collection/feedback/<%= collection._id %>">
+                        <div class="form-group">
+                            <label for="rating">Rating (1-5):</label>
+                            <input type="number" name="rating" id="rating" min="1" max="5" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="comments">Comments:</label>
+                            <textarea name="comments" id="comments" class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Submit Feedback</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const feedbackModal = new bootstrap.Modal(document.getElementById('feedbackModal'));
+            feedbackModal.show();
+
+            document.getElementById('feedbackModal').addEventListener('hidden.bs.modal', function () {
+                fetch('/agent/collection/feedback-dismissed/<%= collection._id %>', { method: 'POST' });
+            });
+        });
+    </script>
+<% } %>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<script src="/assets/js/script.js"></script>
+</body>
+</html>
