@@ -101,7 +101,7 @@ For running the application:
 
 ## Useful Links
 
-- Github Repo: https://github.com/aayush301/Food-donation-management-system
+- Github Repo: https://github.com/Nikki-ta/samvedana
 - Nodejs download: https://nodejs.org/
 - VS Code download: https://code.visualstudio.com/
 - Tutorials: https://www.w3schools.com/
