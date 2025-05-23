@@ -2,7 +2,7 @@
 
 A web application which is useful for management of food donation and collection activities.  
 
-<img src="https://user-images.githubusercontent.com/86913048/226953269-e6ae0484-ab78-4c77-b199-aef793502d8d.png" width="70%">
+<img src="https://github.com/Nikki-ta/samvedana/blob/main/img.png" width="70%">
 
 ## Table of Contents
 
